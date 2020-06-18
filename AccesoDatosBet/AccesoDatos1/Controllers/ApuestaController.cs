@@ -11,22 +11,26 @@ namespace AccesoDatos1.Controllers
     public class ApuestaController : ApiController
     {
         // GET: api/Apuesta
-        public IEnumerable<string> Get()
+        public IEnumerable<ApuestaDTO> Get()
         {
-            return new string[] { "value1", "value2" };
+            var repo = new ApuestaRepository();
+            List<ApuestaDTO> apuestas = repo.RetrieveDTO();
+            return apuestas;
         }
 
         // GET: api/Apuesta/5
         public Apuesta Get(int id)
         {
-            var repo = new ApuestaRepository();
-            Apuesta a = repo.Retrieve();
-            return a;
+            /*var repo = new ApuestaRepository();
+            Apuesta a = repo.Retrieve();*/
+            return null;
         }
 
         // POST: api/Apuesta
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Apuesta apuesta)
         {
+            var repo = new ApuestaRepository();
+            repo.Save(apuesta);
         }
 
         // PUT: api/Apuesta/5

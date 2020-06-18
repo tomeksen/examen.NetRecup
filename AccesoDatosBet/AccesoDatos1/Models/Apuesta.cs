@@ -8,27 +8,50 @@ namespace AccesoDatos1.Models
     public class Apuesta
     {
         int idApuesta;
-        int cantidad;
+        double cantidad;
         string tipoCuota;
-        int cuotaActual;
+        double cuotaActual;
         string email;
         int mercado;
 
-        public Apuesta(int idApuesta, int cantidad, string tipoCuota, int cuotaActual, string email, int mercado)
+        public Apuesta(int idApuesta, double cantidad, string tipoCuota, double cuotaActual, string email, int mercado)
         {
-            this.idApuesta = idApuesta;
-            this.cantidad = cantidad;
-            this.tipoCuota = tipoCuota;
-            this.cuotaActual = cuotaActual;
-            this.email = email;
-            this.mercado = mercado;
+            this.IdApuesta = idApuesta;
+            this.Cantidad = cantidad;
+            this.TipoCuota = tipoCuota;
+            this.CuotaActual = cuotaActual;
+            this.Email = email;
+            this.Mercado = mercado;
         }
 
         public int IdApuesta { get => idApuesta; set => idApuesta = value; }
-        public int Cantidad { get => cantidad; set => cantidad = value; }
+        public double Cantidad { get => cantidad; set => cantidad = value; }
         public string TipoCuota { get => tipoCuota; set => tipoCuota = value; }
-        public int CuotaActual { get => cuotaActual; set => cuotaActual = value; }
+        public double CuotaActual { get => cuotaActual; set => cuotaActual = value; }
         public string Email { get => email; set => email = value; }
         public int Mercado { get => mercado; set => mercado = value; }
+    }
+
+    public class ApuestaDTO {
+        double cantidad;
+        string tipoCuota;
+        double cuotaActual;
+        string email;
+        string overUnder;
+
+        public ApuestaDTO(double cantidad, string tipoCuota, double cuotaActual, string email, string overUnder)
+        {
+            this.Cantidad = cantidad;
+            this.TipoCuota = tipoCuota;
+            this.CuotaActual = cuotaActual; 
+            this.Email = email;
+            this.OverUnder = overUnder;
+        }
+
+        public double Cantidad { get => cantidad; set => cantidad = value; }
+        public string TipoCuota { get => tipoCuota; set => tipoCuota = value; }
+        public double CuotaActual { get => cuotaActual; set => cuotaActual = value; }
+        public string Email { get => email; set => email = value; }
+        public string OverUnder { get => overUnder; set => overUnder = value; }
     }
 }

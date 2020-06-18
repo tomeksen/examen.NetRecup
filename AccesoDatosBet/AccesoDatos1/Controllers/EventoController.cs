@@ -11,22 +11,27 @@ namespace AccesoDatos1.Controllers
     public class EventoController : ApiController
     {
         // GET: api/Evento
-        public IEnumerable<string> Get()
+        public IEnumerable<EventoDTO> Get()
         {
-            return new string[] { "value1", "value2" };
+            var repo = new EventoRepository();
+            //List<Evento> eventos = repo.Retrieve();
+            List<EventoDTO> eventos = repo.RetrieveDTO();
+            return eventos;
         }
 
         // GET: api/Evento/5
         public Evento Get(int id)
         {
-            var repo = new EventoRepository();
-            Evento e = repo.Retrieve();
-            return e;
+            /* repo = new EventoRepository();
+            Evento e = repo.Retrieve();*/
+            return null;
         }
 
         // POST: api/Evento
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Evento evento)
         {
+            var repo = new EventoRepository();
+            repo.Save(evento);
         }
 
         // PUT: api/Evento/5

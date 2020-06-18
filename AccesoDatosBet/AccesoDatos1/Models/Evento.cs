@@ -25,4 +25,19 @@ namespace AccesoDatos1.Models
         public string EquipoVisitante { get => equipoVisitante; set => equipoVisitante = value; }
         public int Goles { get => goles; set => goles = value; }
     }
+
+    public class EventoDTO {
+
+        string equipoLocal;
+        string equipoVisitante;
+
+        public EventoDTO(string equipoLocal, string equipoVisitante)
+        {
+            this.equipoLocal = equipoLocal;
+            this.equipoVisitante = equipoVisitante;
+        }
+
+        public string EquipoLocal { get => equipoLocal; set => equipoLocal = value; }
+        public string EquipoVisitante { get => equipoVisitante; set => equipoVisitante = value; }
+    }
 }
