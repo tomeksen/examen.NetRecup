@@ -75,6 +75,66 @@ namespace AccesoDatos1.Models
             }
         }
 
+        internal List<ApuestaGetQuery> GetInfoApuesta(string correo)
+        {
+            MySqlConnection con = Connect();
+            MySqlCommand command = con.CreateCommand();
+            command.CommandText = "SELECT a.cantidad, a.cuotaActual, a.tipoCuota, m.idPartido, m.overUnder FROM apuesta a INNER JOIN mercado m on a.mercado = m.idMercado WHERE a.email=@A";
+            command.Parameters.AddWithValue("@A",correo);
+
+            try
+            {
+                con.Open();
+                MySqlDataReader res = command.ExecuteReader();
+
+                ApuestaGetQuery a = null;
+                List<ApuestaGetQuery> apuestas = new List<ApuestaGetQuery>();
+                while (res.Read())
+                {
+                    a = new ApuestaGetQuery(res.GetDouble(0), res.GetDouble(1), res.GetString(2));
+                    apuestas.Add(a);
+                }
+
+                con.Close();
+                return apuestas;
+            }
+            catch (MySqlException e)
+            {
+                Debug.WriteLine("Se ha producido un error de conexión");
+                return null;
+            }
+        }
+
+        internal List<ApuestaDTO> RetrieveMercado(int idMercado)
+        {
+            MySqlConnection con = Connect();
+            MySqlCommand command = con.CreateCommand();
+            command.CommandText = "SELECT a.email, m.overUnder, a.tipoCuota, a.cuotaActual, a.cantidad FROM apuesta a INNER JOIN mercado m ON a.mercado=m.idMercado WHERE a.mercado=@A";
+            command.Parameters.AddWithValue("@A", idMercado);
+
+            try
+            {
+                con.Open();
+                MySqlDataReader res = command.ExecuteReader();
+
+                ApuestaDTO a = null;
+                List<ApuestaDTO> apuestas = new List<ApuestaDTO>();
+                while (res.Read())
+                {
+                    a = new ApuestaDTO(res.GetDouble(4), res.GetString(2), res.GetDouble(3), res.GetString(0), res.GetString(1));
+                    apuestas.Add(a);
+                }
+
+                con.Close();
+                return apuestas;
+            }
+            catch (MySqlException e)
+            {
+                Debug.WriteLine("Se ha producido un error de conexión");
+                return null;
+            }
+        }
+
         internal void Save(Apuesta a)
         {
             CultureInfo culInfo = new System.Globalization.CultureInfo("es-ES");

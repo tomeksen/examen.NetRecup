@@ -40,22 +40,16 @@ namespace AccesoDatos1.Models
         double overUnder;
         double cuotaOver;
         double cuotaUnder;
-        double dineroOver;
-        double dineroUNder;
 
-        public MercadoDTO(double overUnder, double cuotaOver, double cuotaUnder, double dineroOver, double dineroUNder)
+        public MercadoDTO(double overUnder, double cuotaOver, double cuotaUnder)
         {
             this.OverUnder = overUnder;
             this.CuotaOver = cuotaOver;
             this.CuotaUnder = cuotaUnder;
-            this.DineroOver = dineroOver;
-            this.DineroUNder = dineroUNder;
         }
 
         public double OverUnder { get => overUnder; set => overUnder = value; }
         public double CuotaOver { get => cuotaOver; set => cuotaOver = value; }
         public double CuotaUnder { get => cuotaUnder; set => cuotaUnder = value; }
-        public double DineroOver { get => dineroOver; set => dineroOver = value; }
-        public double DineroUNder { get => dineroUNder; set => dineroUNder = value; }
     }
 }

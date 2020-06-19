@@ -18,6 +18,14 @@ namespace AccesoDatos1.Controllers
             return mercados;
         }
 
+        //GET: api/Mercado?idPartido=idPartido
+        public IEnumerable<MercadoDTO> GetInfoMercado(int idPartido)
+        {
+            var repo = new MercadoRepository();
+            List<MercadoDTO> mercados = repo.GetInfoMercado(idPartido);
+            return mercados;
+        }
+
         // GET: api/Mercado/5
         public Mercado Get(int id)
         {

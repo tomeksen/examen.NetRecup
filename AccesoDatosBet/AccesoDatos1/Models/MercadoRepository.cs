@@ -61,8 +61,39 @@ namespace AccesoDatos1.Models
                 List<MercadoDTO> mercados = new List<MercadoDTO>();
                 while (res.Read())
                 {
-                    Debug.WriteLine("Recuperado: " + res.GetDouble(1) + " " + res.GetDouble(2) + " " + res.GetDouble(3) + " " + res.GetDouble(4) + " " + res.GetDouble(5));
-                    m = new MercadoDTO(res.GetDouble(1), res.GetDouble(2), res.GetDouble(3), res.GetDouble(4), res.GetDouble(5));
+                    Debug.WriteLine("Recuperado: " + res.GetDouble(0) + " " + res.GetDouble(1) + " " + res.GetDouble(2));
+                    m = new MercadoDTO(res.GetDouble(0), res.GetDouble(1), res.GetDouble(2));
+                    mercados.Add(m);
+                }
+                con.Close();
+                return mercados;
+            }
+            catch (MySqlException e)
+            {
+                Debug.WriteLine("Se ha producido un error de conexión");
+                return null;
+            }
+
+        }
+
+        internal List<MercadoDTO> GetInfoMercado(int idPartido)
+        {
+            MySqlConnection con = Connect();
+            MySqlCommand command = con.CreateCommand();
+            command.CommandText = "SELECT overUnder, cuotaOver, cuotaUnder FROM `mercado` WHERE idPartido=@A";
+            command.Parameters.AddWithValue("@A",idPartido);
+
+            try
+            {
+                con.Open();
+                MySqlDataReader res = command.ExecuteReader();
+
+                MercadoDTO m = null;
+                List<MercadoDTO> mercados = new List<MercadoDTO>();
+                while (res.Read())
+                {
+                    Debug.WriteLine("Recuperado: " + res.GetDouble(0) + " " + res.GetDouble(1) + " " + res.GetDouble(2));
+                    m = new MercadoDTO(res.GetDouble(0), res.GetDouble(1), res.GetDouble(2));
                     mercados.Add(m);
                 }
                 con.Close();

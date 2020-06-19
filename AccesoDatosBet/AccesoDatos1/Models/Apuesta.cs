@@ -54,4 +54,21 @@ namespace AccesoDatos1.Models
         public string Email { get => email; set => email = value; }
         public string OverUnder { get => overUnder; set => overUnder = value; }
     }
+
+    public class ApuestaGetQuery {
+        double cantidad;
+        double cuotaActual;
+        string tipoCuota;
+
+        public ApuestaGetQuery(double cantidad, double cuotaActual, string tipoCuota)
+        {
+            this.Cantidad = cantidad;
+            this.CuotaActual = cuotaActual;
+            this.TipoCuota = tipoCuota;
+        }
+
+        public double Cantidad { get => cantidad; set => cantidad = value; }
+        public double CuotaActual { get => cuotaActual; set => cuotaActual = value; }
+        public string TipoCuota { get => tipoCuota; set => tipoCuota = value; }
+    }
 }

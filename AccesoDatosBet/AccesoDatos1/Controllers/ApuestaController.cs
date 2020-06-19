@@ -18,6 +18,23 @@ namespace AccesoDatos1.Controllers
             return apuestas;
         }
 
+        //GET: api/Apuesta?correo=correo
+        [Authorize(Roles = "Admin")]
+        public IEnumerable<ApuestaGetQuery> GetInfoApuesta(string correo)
+        {
+            var repo = new ApuestaRepository();
+            List<ApuestaGetQuery> apuestas = repo.GetInfoApuesta(correo);
+            return apuestas;
+        }
+
+        [Authorize(Roles ="Admin")]
+        public IEnumerable<ApuestaDTO> GetMercado(int idMercado)
+        {
+            var repo = new ApuestaRepository();
+            List<ApuestaDTO> apuestas = repo.RetrieveMercado(idMercado);
+            return apuestas;
+        }
+
         // GET: api/Apuesta/5
         public Apuesta Get(int id)
         {
@@ -27,6 +44,7 @@ namespace AccesoDatos1.Controllers
         }
 
         // POST: api/Apuesta
+        [Authorize]
         public void Post([FromBody]Apuesta apuesta)
         {
             var repo = new ApuestaRepository();
