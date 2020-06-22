@@ -11,6 +11,7 @@ namespace AccesoDatos1.Controllers
     public class ApuestaController : ApiController
     {
         // GET: api/Apuesta
+        //[Route("api/ApuestaExamen")]
         public IEnumerable<ApuestaDTO> Get()
         {
             var repo = new ApuestaRepository();
