@@ -27,15 +27,23 @@ namespace AccesoDatos1.Controllers
             List<ApuestaGetQuery> apuestas = repo.GetInfoApuesta(correo);
             return apuestas;
         }
-
-        [Authorize(Roles ="Admin")]
+        /*** ejercicio2
+        public int GetIntApuestas(string email, double cuota)
+        {
+            var repo = new ApuestaRepository();
+            int numeroapuestaID = repo.RetrieveNumApuestas(email,cuota);
+            return numeroapuestaID;
+        }
+        ***/
+        
+            /*** ejercicio1
         public IEnumerable<ApuestaDTO> GetMercado(int idMercado)
         {
             var repo = new ApuestaRepository();
             List<ApuestaDTO> apuestas = repo.RetrieveMercado(idMercado);
             return apuestas;
         }
-
+        ***/
         // GET: api/Apuesta/5
         public Apuesta Get(int id)
         {

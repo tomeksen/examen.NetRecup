@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.Ajax.Utilities;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -104,37 +105,79 @@ namespace AccesoDatos1.Models
                 return null;
             }
         }
-
+        /*** ejercicio 1
         internal List<ApuestaDTO> RetrieveMercado(int idMercado)
         {
-            MySqlConnection con = Connect();
-            MySqlCommand command = con.CreateCommand();
+            MySqlConnection connect = Connect();
+            MySqlCommand command = connect.CreateCommand();
             command.CommandText = "SELECT a.email, m.overUnder, a.tipoCuota, a.cuotaActual, a.cantidad FROM apuesta a INNER JOIN mercado m ON a.mercado=m.idMercado WHERE a.mercado=@A";
             command.Parameters.AddWithValue("@A", idMercado);
+                try
+                {
+                    connect.Open();
+                    MySqlDataReader res = command.ExecuteReader();
+                    ApuestaDTO newap = null;
 
+                    if (res.HasRows)
+                    {
+                        List<ApuestaDTO> listapuestas = new List<ApuestaDTO>();
+                        while (res.Read())
+                        {
+                            newap = new ApuestaDTO(res.GetDouble(4), res.GetString(2), res.GetDouble(3), res.GetString(0), res.GetString(1));
+                            listapuestas.Add(newap);
+                        }
+
+                        connect.Close();
+                        return listapuestas;
+                }
+                    else
+                    {
+                    Debug.WriteLine("no exiten apuestas con ese mercado");
+                    return null;
+                    }
+                }
+                catch (MySqlException e)
+                {
+                    Debug.WriteLine("Se ha producido un error de conexión");
+                    return null;
+                }
+        }
+        ***/
+        /*** Ejercicio 2
+        internal int RetrieveNumApuestas(string email,double cuota)
+        {
+            MySqlConnection connect = Connect();
+            MySqlCommand command = connect.CreateCommand();
+            command.CommandText = "SELECT  * FROM apuesta WHERE cuotaActual>@A AND email=@B";
+            command.Parameters.AddWithValue("@A", cuota);
+            command.Parameters.AddWithValue("@B", email);
+            int contador = 0;
             try
             {
-                con.Open();
+                connect.Open();
                 MySqlDataReader res = command.ExecuteReader();
 
-                ApuestaDTO a = null;
-                List<ApuestaDTO> apuestas = new List<ApuestaDTO>();
-                while (res.Read())
+                if (res.HasRows)
                 {
-                    a = new ApuestaDTO(res.GetDouble(4), res.GetString(2), res.GetDouble(3), res.GetString(0), res.GetString(1));
-                    apuestas.Add(a);
+                    while (res.Read())
+                    {
+                        contador++;
+                    }
+                    return contador;
                 }
-
-                con.Close();
-                return apuestas;
+                else
+                {
+                    Debug.WriteLine("no existen apuestas");
+                    return 0;
+                }
             }
             catch (MySqlException e)
             {
                 Debug.WriteLine("Se ha producido un error de conexión");
-                return null;
+                return 0;
             }
         }
-
+        ***/
         internal void Save(Apuesta a)
         {
             CultureInfo culInfo = new System.Globalization.CultureInfo("es-ES");
